@@ -4,10 +4,10 @@
     <div class="layui-card">
         <div class="layui-card-header layuiadmin-card-header-auto">
             <div class="layui-btn-group">
-                @can('system.role.destroy')
+                @can('user.role.destroy')
                     <button class="layui-btn layui-btn-sm layui-btn-danger" id="listDelete">删 除</button>
                 @endcan
-                @can('system.role.create')
+                @can('user.role.create')
                     <a class="layui-btn layui-btn-sm" href="{{ route('admin.role.create') }}">添 加</a>
                 @endcan
             </div>
@@ -16,13 +16,13 @@
             <table id="dataTable" lay-filter="dataTable"></table>
             <script type="text/html" id="options">
                 <div class="layui-btn-group">
-                    @can('system.role.edit')
+                    @can('user.role.edit')
                         <a class="layui-btn layui-btn-sm" lay-event="edit">编辑</a>
                     @endcan
-                    @can('system.role.permission')
+                    @can('user.role.permission')
                         <a class="layui-btn layui-btn-sm" lay-event="permission">权限</a>
                     @endcan
-                    @can('system.role.destroy')
+                    @can('user.role.destroy')
                         <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="del">删除</a>
                     @endcan
                 </div>
@@ -32,7 +32,7 @@
 @endsection
 
 @section('script')
-    @can('system.role')
+    @can('user.role')
         <script>
             layui.use(['layer', 'table', 'form'], function () {
                 var $ = layui.jquery;

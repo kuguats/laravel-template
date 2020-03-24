@@ -4,7 +4,7 @@
     <div class="layui-card">
         <div class="layui-card-header layuiadmin-card-header-auto">
             <div class="layui-btn-group ">
-                @can('system.permission.create')
+                @can('user.permission.create')
                     <a class="layui-btn layui-btn-sm" href="{{ route('admin.permission.create') }}">添 加</a>
                 @endcan
             </div>
@@ -13,10 +13,10 @@
             <table id="dataTable" lay-filter="dataTable"></table>
             <script type="text/html" id="options">
                 <div class="layui-btn-group">
-                    @can('system.permission.edit')
+                    @can('user.permission.edit')
                         <a class="layui-btn layui-btn-sm" lay-event="edit">编辑</a>
                     @endcan
-                    @can('system.permission.destroy')
+                    @can('user.permission.destroy')
                         <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="del">删除</a>
                     @endcan
                 </div>
@@ -26,7 +26,7 @@
 @endsection
 
 @section('script')
-    @can('system.permission')
+    @can('user.permission')
         <script>
             layui.config({
                 base: '/static/admin/layuiadmin/modules/'

@@ -25,10 +25,5 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Schema::defaultStringLength(191);
-        //左侧菜单
-        view()->composer('admin.layout',function($view){
-            $menus = \App\Models\Permission::with(['childs'])->where('parent_id',0)->orderBy('sort','desc')->get();
-            $view->with('menus',$menus);
-        });
     }
 }

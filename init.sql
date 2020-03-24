@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : vm_centos7
+ Source Server         : localhost
  Source Server Type    : MySQL
- Source Server Version : 80017
- Source Host           : 192.168.18.173:3306
- Source Schema         : laravel6
+ Source Server Version : 50726
+ Source Host           : 127.0.0.1:3306
+ Source Schema         : jx3box_os
 
  Target Server Type    : MySQL
- Target Server Version : 80017
+ Target Server Version : 50726
  File Encoding         : 65001
 
- Date: 03/03/2020 09:35:39
+ Date: 24/03/2020 22:42:59
 */
 
 SET NAMES utf8mb4;
@@ -53,7 +53,7 @@ CREATE TABLE `configuration`  (
   `created_at` timestamp(0) NULL DEFAULT NULL,
   `updated_at` timestamp(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 16 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '配置项表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 17 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '配置项表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of configuration
@@ -81,12 +81,13 @@ CREATE TABLE `login_log`  (
   `created_at` timestamp(0) NULL DEFAULT NULL,
   `updated_at` timestamp(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of login_log
 -- ----------------------------
 INSERT INTO `login_log` VALUES (10, 'admin', '127.0.0.1', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.122 Safari/537.36', '登录成功', '2020-03-03 08:44:23', '2020-03-03 08:44:23');
+INSERT INTO `login_log` VALUES (11, 'admin', '127.0.0.1', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.69 Safari/537.36 Edg/81.0.416.34', '登录成功', '2020-03-24 21:20:12', '2020-03-24 21:20:12');
 
 -- ----------------------------
 -- Table structure for model_has_permissions
@@ -130,6 +131,7 @@ INSERT INTO `model_has_permissions` VALUES (23, 'App\\Models\\User', 1);
 INSERT INTO `model_has_permissions` VALUES (24, 'App\\Models\\User', 1);
 INSERT INTO `model_has_permissions` VALUES (25, 'App\\Models\\User', 1);
 INSERT INTO `model_has_permissions` VALUES (26, 'App\\Models\\User', 1);
+INSERT INTO `model_has_permissions` VALUES (42, 'App\\Models\\User', 1);
 
 -- ----------------------------
 -- Table structure for model_has_roles
@@ -166,27 +168,27 @@ CREATE TABLE `permissions`  (
   `created_at` timestamp(0) NULL DEFAULT NULL,
   `updated_at` timestamp(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 42 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '权限表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 43 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '权限表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of permissions
 -- ----------------------------
 INSERT INTO `permissions` VALUES (1, 'system', 'web', '系统管理', NULL, 'layui-icon-set', 0, 0, 1, '2020-01-19 15:55:33', '2020-02-25 16:41:23');
-INSERT INTO `permissions` VALUES (2, 'system.user', 'web', '用户管理', 'admin.user', '1', 1, 0, 2, '2020-01-19 15:55:33', '2020-01-19 15:55:33');
-INSERT INTO `permissions` VALUES (3, 'system.user.create', 'web', '添加用户', 'admin.user.create', '1', 2, 0, 2, '2020-01-19 15:55:33', '2020-01-19 15:55:33');
-INSERT INTO `permissions` VALUES (4, 'system.user.edit', 'web', '编辑用户', 'admin.user.edit', '1', 2, 0, 2, '2020-01-19 15:55:33', '2020-01-19 15:55:33');
-INSERT INTO `permissions` VALUES (5, 'system.user.destroy', 'web', '删除用户', 'admin.user.destroy', '1', 2, 0, 2, '2020-01-19 15:55:33', '2020-01-19 15:55:33');
-INSERT INTO `permissions` VALUES (6, 'system.user.role', 'web', '分配角色', 'admin.user.role', '1', 2, 0, 2, '2020-01-19 15:55:33', '2020-01-19 15:55:33');
-INSERT INTO `permissions` VALUES (7, 'system.user.permission', 'web', '分配权限', 'admin.user.permission', '1', 2, 0, 2, '2020-01-19 15:55:33', '2020-01-19 15:55:33');
-INSERT INTO `permissions` VALUES (8, 'system.role', 'web', '角色管理', 'admin.role', '1', 1, 0, 2, '2020-01-19 15:55:33', '2020-01-19 15:55:33');
-INSERT INTO `permissions` VALUES (9, 'system.role.create', 'web', '添加角色', 'admin.role.create', '1', 8, 0, 2, '2020-01-19 15:55:33', '2020-01-19 15:55:33');
-INSERT INTO `permissions` VALUES (10, 'system.role.edit', 'web', '编辑角色', 'admin.role.edit', '1', 8, 0, 2, '2020-01-19 15:55:33', '2020-01-19 15:55:33');
-INSERT INTO `permissions` VALUES (11, 'system.role.destroy', 'web', '删除角色', 'admin.role.destroy', '1', 8, 0, 2, '2020-01-19 15:55:33', '2020-01-19 15:55:33');
-INSERT INTO `permissions` VALUES (12, 'system.role.permission', 'web', '分配权限', 'admin.role.permission', '1', 8, 0, 2, '2020-01-19 15:55:33', '2020-01-19 15:55:33');
-INSERT INTO `permissions` VALUES (13, 'system.permission', 'web', '权限管理', 'admin.permission', '1', 1, 0, 2, '2020-01-19 15:55:33', '2020-01-19 15:55:33');
-INSERT INTO `permissions` VALUES (14, 'system.permission.create', 'web', '添加权限', 'admin.permission.create', '1', 13, 0, 2, '2020-01-19 15:55:33', '2020-01-19 15:55:33');
-INSERT INTO `permissions` VALUES (15, 'system.permission.edit', 'web', '编辑权限', 'admin.permission.edit', '1', 13, 0, 2, '2020-01-19 15:55:33', '2020-01-19 15:55:33');
-INSERT INTO `permissions` VALUES (16, 'system.permission.destroy', 'web', '删除权限', 'admin.permission.destroy', '1', 13, 0, 2, '2020-01-19 15:55:33', '2020-01-19 15:55:33');
+INSERT INTO `permissions` VALUES (2, 'user.user', 'web', '用户管理', 'admin.user', '1', 42, 0, 2, '2020-01-19 15:55:33', '2020-03-24 21:45:55');
+INSERT INTO `permissions` VALUES (3, 'user.user.create', 'web', '添加用户', 'admin.user.create', '1', 2, 0, 2, '2020-01-19 15:55:33', '2020-03-24 22:27:58');
+INSERT INTO `permissions` VALUES (4, 'user.user.edit', 'web', '编辑用户', 'admin.user.edit', '1', 2, 0, 2, '2020-01-19 15:55:33', '2020-01-19 15:55:33');
+INSERT INTO `permissions` VALUES (5, 'user.user.destroy', 'web', '删除用户', 'admin.user.destroy', '1', 2, 0, 2, '2020-01-19 15:55:33', '2020-01-19 15:55:33');
+INSERT INTO `permissions` VALUES (6, 'user.user.role', 'web', '分配角色', 'admin.user.role', '1', 2, 0, 2, '2020-01-19 15:55:33', '2020-01-19 15:55:33');
+INSERT INTO `permissions` VALUES (7, 'user.user.permission', 'web', '分配权限', 'admin.user.permission', '1', 2, 0, 2, '2020-01-19 15:55:33', '2020-01-19 15:55:33');
+INSERT INTO `permissions` VALUES (8, 'user.role', 'web', '角色管理', 'admin.role', '1', 42, 0, 2, '2020-01-19 15:55:33', '2020-03-24 21:46:06');
+INSERT INTO `permissions` VALUES (9, 'user.role.create', 'web', '添加角色', 'admin.role.create', '1', 8, 0, 2, '2020-01-19 15:55:33', '2020-01-19 15:55:33');
+INSERT INTO `permissions` VALUES (10, 'user.role.edit', 'web', '编辑角色', 'admin.role.edit', '1', 8, 0, 2, '2020-01-19 15:55:33', '2020-01-19 15:55:33');
+INSERT INTO `permissions` VALUES (11, 'user.role.destroy', 'web', '删除角色', 'admin.role.destroy', '1', 8, 0, 2, '2020-01-19 15:55:33', '2020-01-19 15:55:33');
+INSERT INTO `permissions` VALUES (12, 'user.role.permission', 'web', '分配权限', 'admin.role.permission', '1', 8, 0, 2, '2020-01-19 15:55:33', '2020-01-19 15:55:33');
+INSERT INTO `permissions` VALUES (13, 'user.permission', 'web', '权限管理', 'admin.permission', '1', 42, 0, 2, '2020-01-19 15:55:33', '2020-03-24 21:46:14');
+INSERT INTO `permissions` VALUES (14, 'user.permission.create', 'web', '添加权限', 'admin.permission.create', '1', 13, 0, 2, '2020-01-19 15:55:33', '2020-01-19 15:55:33');
+INSERT INTO `permissions` VALUES (15, 'user.permission.edit', 'web', '编辑权限', 'admin.permission.edit', '1', 13, 0, 2, '2020-01-19 15:55:33', '2020-01-19 15:55:33');
+INSERT INTO `permissions` VALUES (16, 'user.permission.destroy', 'web', '删除权限', 'admin.permission.destroy', '1', 13, 0, 2, '2020-01-19 15:55:33', '2020-01-19 15:55:33');
 INSERT INTO `permissions` VALUES (17, 'system.config_group', 'web', '配置组', 'admin.config_group', '1', 1, 0, 2, '2020-01-19 15:55:33', '2020-01-19 15:55:33');
 INSERT INTO `permissions` VALUES (18, 'system.config_group.create', 'web', '添加组', 'admin.config_group.create', '1', 17, 0, 2, '2020-01-19 15:55:33', '2020-01-19 15:55:33');
 INSERT INTO `permissions` VALUES (19, 'system.config_group.edit', 'web', '编辑组', 'admin.config_group.edit', '1', 17, 0, 2, '2020-01-19 15:55:33', '2020-01-19 15:55:33');
@@ -197,6 +199,7 @@ INSERT INTO `permissions` VALUES (23, 'system.configuration.edit', 'web', '编�
 INSERT INTO `permissions` VALUES (24, 'system.configuration.destroy', 'web', '删除组', 'admin.configuration.destroy', '1', 21, 0, 2, '2020-01-19 15:55:34', '2020-01-19 15:55:34');
 INSERT INTO `permissions` VALUES (25, 'system.login_log', 'web', '登录日志', 'admin.login_log', '1', 1, 0, 2, '2020-01-19 15:55:34', '2020-01-19 15:55:34');
 INSERT INTO `permissions` VALUES (26, 'system.login_log.destroy', 'web', '删除', 'admin.login_log.destroy', '1', 25, 0, 2, '2020-01-19 15:55:34', '2020-01-19 15:55:34');
+INSERT INTO `permissions` VALUES (42, 'user', 'web', '系统用户', NULL, 'layui-icon-group', 0, 10, 1, '2020-03-24 21:28:48', '2020-03-24 21:30:12');
 
 -- ----------------------------
 -- Table structure for role_has_permissions
@@ -240,6 +243,7 @@ INSERT INTO `role_has_permissions` VALUES (23, 1);
 INSERT INTO `role_has_permissions` VALUES (24, 1);
 INSERT INTO `role_has_permissions` VALUES (25, 1);
 INSERT INTO `role_has_permissions` VALUES (26, 1);
+INSERT INTO `role_has_permissions` VALUES (42, 1);
 
 -- ----------------------------
 -- Table structure for roles
@@ -290,6 +294,6 @@ CREATE TABLE `users`  (
 -- ----------------------------
 -- Records of users
 -- ----------------------------
-INSERT INTO `users` VALUES (1, 'admin', '17355105312', '超级管理员', 'wuruiwm@qq.com', '$2y$10$eOvr3LmME3nFGBObpHFaSuf7XfzICR.6ld/jDydwrBd3rCgE01Xyq', NULL, 'b7806eb968f4cb230602dd623783b2830f965e7bda01acea093d4efabf33fb1f', '2020-01-19 15:55:33', '2020-02-25 11:46:47');
+INSERT INTO `users` VALUES (1, 'admin', '18826491548', '苦瓜糖水', '445786355@qq.com', '$2y$10$4rh0N098Kz2e3Yha2BkGROQRbF44rkawCGlFnKw0/INEZC770ehN.', NULL, 'b7806eb968f4cb230602dd623783b2830f965e7bda01acea093d4efabf33fb1f', '2020-01-19 15:55:33', '2020-03-24 22:42:20');
 
 SET FOREIGN_KEY_CHECKS = 1;
