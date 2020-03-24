@@ -11,7 +11,7 @@
  Target Server Version : 50726
  File Encoding         : 65001
 
- Date: 24/03/2020 22:42:59
+ Date: 25/03/2020 02:47:51
 */
 
 SET NAMES utf8mb4;
@@ -81,13 +81,15 @@ CREATE TABLE `login_log`  (
   `created_at` timestamp(0) NULL DEFAULT NULL,
   `updated_at` timestamp(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 14 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of login_log
 -- ----------------------------
 INSERT INTO `login_log` VALUES (10, 'admin', '127.0.0.1', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.122 Safari/537.36', '登录成功', '2020-03-03 08:44:23', '2020-03-03 08:44:23');
 INSERT INTO `login_log` VALUES (11, 'admin', '127.0.0.1', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.69 Safari/537.36 Edg/81.0.416.34', '登录成功', '2020-03-24 21:20:12', '2020-03-24 21:20:12');
+INSERT INTO `login_log` VALUES (12, 'admin', '127.0.0.1', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36 Edg/80.0.361.69', '登录成功', '2020-03-24 23:40:04', '2020-03-24 23:40:04');
+INSERT INTO `login_log` VALUES (13, 'admin', '127.0.0.1', 'POST', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36 Edg/80.0.361.69', '登录成功', '2020-03-25 02:38:58', '2020-03-25 02:38:58');
 
 -- ----------------------------
 -- Table structure for model_has_permissions
@@ -294,6 +296,6 @@ CREATE TABLE `users`  (
 -- ----------------------------
 -- Records of users
 -- ----------------------------
-INSERT INTO `users` VALUES (1, 'admin', '18826491548', '苦瓜糖水', '445786355@qq.com', '$2y$10$4rh0N098Kz2e3Yha2BkGROQRbF44rkawCGlFnKw0/INEZC770ehN.', NULL, 'b7806eb968f4cb230602dd623783b2830f965e7bda01acea093d4efabf33fb1f', '2020-01-19 15:55:33', '2020-03-24 22:42:20');
+INSERT INTO `users` VALUES (1, 'admin', '18826491548', '苦瓜糖水', '445786355@qq.com', '$2y$10$f5NoStLxFIpzgNI/wo/iQ.i/TxDzAGmjOLTngqCsLQpgMdaJKPjgi', NULL, 'b7806eb968f4cb230602dd623783b2830f965e7bda01acea093d4efabf33fb1f', '2020-01-19 15:55:33', '2020-03-25 02:47:21');
 
 SET FOREIGN_KEY_CHECKS = 1;

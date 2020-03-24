@@ -12,5 +12,5 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return '0.0';   // return redirect("https://www.cnblogs.com/kuguats", 301);
 });
