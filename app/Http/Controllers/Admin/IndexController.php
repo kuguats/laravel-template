@@ -11,7 +11,7 @@ class IndexController extends Controller
     public function layout()
     {
         $menus = \App\Models\Permission::with(['childs'])->where('parent_id', 0)->orderBy('sort', 'desc')->get();
-        return View::make('admin.layout',compact('menus'));
+        return View::make('admin.layout', compact('menus'));
     }
 
     public function index()

@@ -45,7 +45,7 @@ class PermissionController extends Controller
      */
     public function create()
     {
-        $permissions = Permission::with('allChilds')->where('parent_id', 0)->get();
+        $permissions = Permission::with('children')->where('parent_id', 0)->get();
         return View::make('admin.permission.create', compact('permissions'));
     }
 
@@ -85,7 +85,7 @@ class PermissionController extends Controller
     public function edit($id)
     {
         $permission = Permission::findOrFail($id);
-        $permissions = Permission::with('allChilds')->where('parent_id', 0)->get();
+        $permissions = Permission::with('children')->where('parent_id', 0)->get();
         return View::make('admin.permission.edit', compact('permission', 'permissions'));
     }
 

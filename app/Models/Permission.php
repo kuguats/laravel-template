@@ -21,9 +21,9 @@ class Permission extends \Spatie\Permission\Models\Permission
     }
 
     //所有子权限递归
-    public function allChilds()
+    public function children()
     {
-        return $this->childs()->with('allChilds');
+        return $this->childs()->with('children');
     }
 
 }

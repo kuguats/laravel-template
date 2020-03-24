@@ -276,7 +276,7 @@ class UserController extends Controller
     public function permission($id)
     {
         $user = User::findOrFail($id);
-        $permissions = Permission::with('allChilds')->where('parent_id',0)->get();
+        $permissions = Permission::with('children')->where('parent_id',0)->get();
         foreach ($permissions as $p1){
             $p1->own = $user->hasDirectPermission($p1->id) ? 'checked' : '' ;
             if ($p1->childs->isNotEmpty()){

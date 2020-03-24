@@ -16,9 +16,9 @@ class Category extends Model
     }
 
     //所有子类
-    public function allChilds()
+    public function children()
     {
-        return $this->childs()->with('allChilds');
+        return $this->childs()->with('children');
     }
 
     //分类下所有的文章

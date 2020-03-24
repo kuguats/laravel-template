@@ -134,7 +134,7 @@ class RoleController extends Controller
     public function permission(Request $request,$id)
     {
         $role = Role::findOrFail($id);
-        $permissions = Permission::with('allChilds')->where('parent_id',0)->get();
+        $permissions = Permission::with('children')->where('parent_id',0)->get();
         foreach ($permissions as $p1){
             $p1->own = $role->hasPermissionTo($p1->id) ? 'checked' : false ;
             if ($p1->childs->isNotEmpty()){
