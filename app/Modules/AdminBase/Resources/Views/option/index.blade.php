@@ -90,10 +90,11 @@ use App\Models\AdminBase\Permission;
                                         <div class="layui-form-mid layui-word-aux">{{$option->tips}}</div>
                                     </div>
                                 @endforeach
-                                <div class="layui-form-item">
+                                <hr>
+                                <div class="layui-form-item" style="text-align:right">
                                     <div class="layui-inline">
-                                        <button type="submit" class="layui-btn" lay-submit lay-filter="option_group">确
-                                            认
+                                        <button type="submit" class="layui-btn" lay-submit lay-filter="option_group">
+                                            确认
                                         </button>
                                     </div>
                                 </div>

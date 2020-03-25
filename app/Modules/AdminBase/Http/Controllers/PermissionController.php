@@ -2,6 +2,8 @@
 
 namespace App\Modules\AdminBase\Http\Controllers;
 
+use App\Models\AdminBase\Role;
+use App\Models\AdminBase\User;
 use App\Modules\AdminBase\Http\Requests\PermissionCreateRequest;
 use App\Modules\AdminBase\Http\Requests\PermissionUpdateRequest;
 use Illuminate\Http\Request;
@@ -58,7 +60,16 @@ class PermissionController extends Controller
     {
         $data = $request->all();
         try {
-            Permission::create($data);
+            $permission = Permission::create($data);
+
+            // 默认赋予超级管理员角色新权限
+            $role = Role::where('name', 'root')->first();
+            if (!empty($role)) $role->givePermissionTo($permission->name);
+
+            // 默认赋予超级管理员下用户新权限
+            $users = User::role('root')->get();
+            foreach ($users as $user) $user->givePermissionTo($permission->name);
+
             return Redirect::to(URL::route('admin.permission'))->with(['success' => '添加成功']);
         } catch (\Exception $exception) {
             return Redirect::back()->withErrors('添加失败');
@@ -69,7 +80,7 @@ class PermissionController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)

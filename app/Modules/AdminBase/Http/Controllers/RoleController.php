@@ -57,11 +57,11 @@ class RoleController extends Controller
      */
     public function store(RoleCreateRequest $request)
     {
-        $data = $request->only(['name','display_name']);
-        try{
+        $data = $request->only(['name', 'display_name']);
+        try {
             Role::create($data);
-            return Redirect::to(URL::route('admin.role'))->with(['success'=>'添加成功']);
-        }catch (\Exception $exception){
+            return Redirect::to(URL::route('admin.role'))->with(['success' => '添加成功']);
+        } catch (\Exception $exception) {
             return Redirect::back()->withErrors('添加失败');
         }
     }
@@ -69,7 +69,7 @@ class RoleController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -85,7 +85,7 @@ class RoleController extends Controller
     public function edit($id)
     {
         $role = Role::findOrFail($id);
-        return view('AdminBase::role.edit',compact('role'));
+        return view('AdminBase::role.edit', compact('role'));
     }
 
     /**
@@ -97,11 +97,11 @@ class RoleController extends Controller
     public function update(RoleUpdateRequest $request, $id)
     {
         $role = Role::findOrFail($id);
-        $data = $request->only(['name','display_name']);
-        try{
+        $data = $request->only(['name', 'display_name']);
+        try {
             $role->update($data);
-            return Redirect::to(URL::route('admin.role'))->with(['success'=>'更新成功']);
-        }catch (\Exception $exception){
+            return Redirect::to(URL::route('admin.role'))->with(['success' => '更新成功']);
+        } catch (\Exception $exception) {
             return Redirect::back()->withErrors('更新失败');
         }
     }
@@ -114,14 +114,14 @@ class RoleController extends Controller
     public function destroy(Request $request)
     {
         $ids = $request->get('ids');
-        if (!is_array($ids) || empty($ids)){
-            return Response::json(['code'=>1,'msg'=>'请选择删除项']);
+        if (!is_array($ids) || empty($ids)) {
+            return Response::json(['code' => 1, 'msg' => '请选择删除项']);
         }
-        try{
+        try {
             Role::destroy($ids);
-            return Response::json(['code'=>0,'msg'=>'删除成功']);
-        }catch (\Exception $exception){
-            return Response::json(['code'=>1,'msg'=>'删除失败']);
+            return Response::json(['code' => 0, 'msg' => '删除成功']);
+        } catch (\Exception $exception) {
+            return Response::json(['code' => 1, 'msg' => '删除失败']);
         }
     }
 
@@ -131,24 +131,24 @@ class RoleController extends Controller
      * @param $id
      * @return \Illuminate\Contracts\View\View
      */
-    public function permission(Request $request,$id)
+    public function permission(Request $request, $id)
     {
         $role = Role::findOrFail($id);
-        $permissions = Permission::with('children')->where('parent_id',0)->get();
-        foreach ($permissions as $p1){
-            $p1->own = $role->hasPermissionTo($p1->id) ? 'checked' : false ;
-            if ($p1->childs->isNotEmpty()){
-                foreach ($p1->childs as $p2){
-                    $p2->own = $role->hasPermissionTo($p2->id) ? 'checked' : false ;
-                    if ($p2->childs->isNotEmpty()){
-                        foreach ($p2->childs as $p3){
-                            $p3->own = $role->hasPermissionTo($p3->id) ? 'checked' : false ;
+        $permissions = Permission::with('children')->where('parent_id', 0)->get();
+        foreach ($permissions as $p1) {
+            $p1->own = $role->hasPermissionTo($p1->id) ? 'checked' : false;
+            if ($p1->childs->isNotEmpty()) {
+                foreach ($p1->childs as $p2) {
+                    $p2->own = $role->hasPermissionTo($p2->id) ? 'checked' : false;
+                    if ($p2->childs->isNotEmpty()) {
+                        foreach ($p2->childs as $p3) {
+                            $p3->own = $role->hasPermissionTo($p3->id) ? 'checked' : false;
                         }
                     }
                 }
             }
         }
-        return view('AdminBase::role.permission',compact('role','permissions'));
+        return view('AdminBase::role.permission', compact('role', 'permissions'));
     }
 
     /**
@@ -157,14 +157,14 @@ class RoleController extends Controller
      * @param $id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function assignPermission(Request $request,$id)
+    public function assignPermission(Request $request, $id)
     {
         $role = Role::findOrFail($id);
-        $permissions = $request->get('permissions',[]);
-        try{
+        $permissions = $request->get('permissions', []);
+        try {
             $role->syncPermissions($permissions);
-            return Redirect::to(URL::route('admin.role'))->with(['success'=>'更新成功']);
-        }catch (\Exception $exception){
+            return Redirect::to(URL::route('admin.role'))->with(['success' => '更新成功']);
+        } catch (\Exception $exception) {
             return Redirect::back()->withErrors('更新失败');
         }
     }
