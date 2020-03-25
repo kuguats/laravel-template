@@ -9,7 +9,7 @@
  */
 function adminConfig($key){
     $data = \Illuminate\Support\Facades\Cache::rememberForever('adminConfig', function(){
-        return \App\Models\Configuration::pluck('val','key');
+        return \App\Models\AdminBase\Option::pluck('val','key');
     });
     if(isset($data[$key]) && !empty($data[$key])){
         return $data[$key];
