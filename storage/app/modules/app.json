@@ -1,0 +1,12 @@
+{
+    "AdminBase": {
+        "basename": "AdminBase",
+        "name": "AdminBase",
+        "slug": "AdminBase",
+        "version": "1.0",
+        "description": "This is the description for the AdminBase module.",
+        "id": 3857477713,
+        "enabled": true,
+        "order": 9001
+    }
+}
