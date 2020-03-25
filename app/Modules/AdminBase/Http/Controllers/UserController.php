@@ -32,7 +32,7 @@ class UserController extends Controller
      */
     public function showLoginForm()
     {
-        return View::make('AdminBase::user.login');
+        return view('AdminBase::user.login');
     }
 
     /**
@@ -104,7 +104,7 @@ class UserController extends Controller
      */
     public function changeMyPasswordForm()
     {
-        return View::make('AdminBase::user.changeMyPassword');
+        return view('AdminBase::user.changeMyPassword');
     }
 
     /**
@@ -133,7 +133,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return View::make('AdminBase::user.index');
+        return view('AdminBase::user.index');
     }
 
     public function data(Request $request)
@@ -154,7 +154,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return View::make('AdminBase::user.create');
+        return view('AdminBase::user.create');
     }
 
     /**
@@ -192,7 +192,7 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::findOrFail($id);
-        return View::make('AdminBase::user.edit',compact('user'));
+        return view('AdminBase::user.edit',compact('user'));
     }
 
     /**
@@ -247,7 +247,7 @@ class UserController extends Controller
         foreach ($roles as $role){
             $role->own = $user->hasRole($role) ? true : false;
         }
-        return View::make('AdminBase::user.role',compact('roles','user'));
+        return view('AdminBase::user.role',compact('roles','user'));
     }
 
     /**
@@ -290,7 +290,7 @@ class UserController extends Controller
                 }
             }
         }
-        return View::make('AdminBase::user.permission',compact('user','permissions'));
+        return view('AdminBase::user.permission',compact('user','permissions'));
     }
 
     /**

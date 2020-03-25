@@ -1,10 +1,16 @@
+<?php
+
+use App\Models\AdminBase\Permission;
+
+?>
+
 @extends('AdminBase::base')
 
 @section('content')
     <div class="layui-card">
         <div class="layui-card-header layuiadmin-card-header-auto">
             <div class="layui-inline">
-                @can('system.option_group.create')
+                @can(Permission::OPTION_GROUP_CREATE)
                     <a class="layui-btn" href="{{ route('admin.option_group.create') }}">添加</a>
                 @endcan
             </div>
@@ -13,10 +19,10 @@
             <table id="dataTable" lay-filter="dataTable"></table>
             <script type="text/html" id="options">
                 <div class="layui-inline">
-                    @can('system.option_group.edit')
+                    @can(Permission::OPTION_GROUP_EDIT)
                         <a class="layui-btn layui-btn-sm" lay-event="edit">编辑</a>
                     @endcan
-                    @can('system.option_group.destroy')
+                    @can(Permission::OPTION_GROUP_DESTROY)
                         <a class="layui-btn layui-btn-sm layui-btn-danger" lay-event="del">删除</a>
                     @endcan
                 </div>
@@ -26,7 +32,7 @@
 @endsection
 
 @section('script')
-    @can('system.option_group')
+    @can(Permission::OPTION_GROUP)
         <script>
             layui.use(['layer', 'table', 'form'], function () {
                 var $ = layui.jquery;

@@ -21,7 +21,7 @@ class RoleController extends Controller
      */
     public function index()
     {
-        return View::make('AdminBase::role.index');
+        return view('AdminBase::role.index');
     }
 
     /**
@@ -47,7 +47,7 @@ class RoleController extends Controller
      */
     public function create()
     {
-        return View::make('AdminBase::role.create');
+        return view('AdminBase::role.create');
     }
 
     /**
@@ -85,7 +85,7 @@ class RoleController extends Controller
     public function edit($id)
     {
         $role = Role::findOrFail($id);
-        return View::make('AdminBase::role.edit',compact('role'));
+        return view('AdminBase::role.edit',compact('role'));
     }
 
     /**
@@ -148,7 +148,7 @@ class RoleController extends Controller
                 }
             }
         }
-        return View::make('AdminBase::role.permission',compact('role','permissions'));
+        return view('AdminBase::role.permission',compact('role','permissions'));
     }
 
     /**

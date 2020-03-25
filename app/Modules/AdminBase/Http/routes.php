@@ -11,6 +11,8 @@
 |--------------------------------------------------------------------------
 */
 
+use App\Models\AdminBase\Permission;
+
 /*
 |--------------------------------------------------------------------------
 | 用户登录、退出、更改密码
@@ -47,56 +49,86 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth'], fu
 | 系统用户模块
 |--------------------------------------------------------------------------
 */
-Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'permission:user']], function () {
+Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'permission:' . Permission::MODULE_USER]], function () {
     //用户管理
-    Route::get('user', ['as' => 'user', 'uses' => 'UserController@index', 'middleware' => 'permission:user.user']);
-    Route::group(['as' => 'user.', 'middleware' => 'permission:user.user'], function () {
+    Route::group(['middleware' => 'permission:' . Permission::USER], function () {
+        Route::get('user', ['as' => 'user', 'uses' => 'UserController@index']);
+    });
+    Route::group(['as' => 'user.', 'middleware' => 'permission:' . Permission::USER], function () {
         Route::get('user/data', ['as' => 'data', 'uses' => 'UserController@data']);
         //添加
-        Route::get('user/create', ['as' => 'create', 'uses' => 'UserController@create', 'middleware' => 'permission:user.user.create']);
-        Route::post('user/store', ['as' => 'store', 'uses' => 'UserController@store', 'middleware' => 'permission:user.user.create']);
+        Route::group(['middleware' => 'permission:' . Permission::USER_CREATE], function () {
+            Route::get('user/create', ['as' => 'create', 'uses' => 'UserController@create']);
+            Route::post('user/store', ['as' => 'store', 'uses' => 'UserController@store']);
+        });
         //编辑
-        Route::get('user/{id}/edit', ['as' => 'edit', 'uses' => 'UserController@edit', 'middleware' => 'permission:user.user.edit']);
-        Route::put('user/{id}/update', ['as' => 'update', 'uses' => 'UserController@update', 'middleware' => 'permission:user.user.edit']);
+        Route::group(['middleware' => 'permission:' . Permission::USER_EDIT], function () {
+            Route::get('user/{id}/edit', ['as' => 'edit', 'uses' => 'UserController@edit']);
+            Route::put('user/{id}/update', ['as' => 'update', 'uses' => 'UserController@update']);
+        });
         //删除
-        Route::delete('user/destroy', ['as' => 'destroy', 'uses' => 'UserController@destroy', 'middleware' => 'permission:user.user.destroy']);
+        Route::group(['middleware' => 'permission:' . Permission::USER_DESTROY], function () {
+            Route::delete('user/destroy', ['as' => 'destroy', 'uses' => 'UserController@destroy']);
+        });
         //分配角色
-        Route::get('user/{id}/role', ['as' => 'role', 'uses' => 'UserController@role', 'middleware' => 'permission:user.user.role']);
-        Route::put('user/{id}/assignRole', ['as' => 'assignRole', 'uses' => 'UserController@assignRole', 'middleware' => 'permission:user.user.role']);
+        Route::group(['middleware' => 'permission:' . Permission::USER_ROLE], function () {
+            Route::get('user/{id}/role', ['as' => 'role', 'uses' => 'UserController@role']);
+            Route::put('user/{id}/assignRole', ['as' => 'assignRole', 'uses' => 'UserController@assignRole']);
+        });
         //分配权限
-        Route::get('user/{id}/permission', ['as' => 'permission', 'uses' => 'UserController@permission', 'middleware' => 'permission:user.user.permission']);
-        Route::put('user/{id}/assignPermission', ['as' => 'assignPermission', 'uses' => 'UserController@assignPermission', 'middleware' => 'permission:user.user.permission']);
+        Route::group(['middleware' => 'permission:' . Permission::USER_PERMISSION], function () {
+            Route::get('user/{id}/permission', ['as' => 'permission', 'uses' => 'UserController@permission']);
+            Route::put('user/{id}/assignPermission', ['as' => 'assignPermission', 'uses' => 'UserController@assignPermission']);
+        });
     });
 
     //角色管理
-    Route::get('role', ['as' => 'role', 'uses' => 'RoleController@index', 'middleware' => 'permission:user.role']);
-    Route::group(['as' => 'role.', 'middleware' => 'permission:user.role'], function () {
+    Route::group(['middleware' => 'permission:' . Permission::ROLE], function () {
+        Route::get('role', ['as' => 'role', 'uses' => 'RoleController@index']);
+    });
+    Route::group(['as' => 'role.', 'middleware' => 'permission:' . Permission::ROLE], function () {
         Route::get('role/data', ['as' => 'data', 'uses' => 'RoleController@data']);
         //添加
-        Route::get('role/create', ['as' => 'create', 'uses' => 'RoleController@create', 'middleware' => 'permission:user.role.create']);
-        Route::post('role/store', ['as' => 'store', 'uses' => 'RoleController@store', 'middleware' => 'permission:user.role.create']);
+        Route::group(['middleware' => 'permission:' . Permission::ROLE_CREATE], function () {
+            Route::get('role/create', ['as' => 'create', 'uses' => 'RoleController@create']);
+            Route::post('role/store', ['as' => 'store', 'uses' => 'RoleController@store']);
+        });
         //编辑
-        Route::get('role/{id}/edit', ['as' => 'edit', 'uses' => 'RoleController@edit', 'middleware' => 'permission:user.role.edit']);
-        Route::put('role/{id}/update', ['as' => 'update', 'uses' => 'RoleController@update', 'middleware' => 'permission:user.role.edit']);
+        Route::group(['middleware' => 'permission:' . Permission::ROLE_EDIT], function () {
+            Route::get('role/{id}/edit', ['as' => 'edit', 'uses' => 'RoleController@edit']);
+            Route::put('role/{id}/update', ['as' => 'update', 'uses' => 'RoleController@update']);
+        });
         //删除
-        Route::delete('role/destroy', ['as' => 'destroy', 'uses' => 'RoleController@destroy', 'middleware' => 'permission:user.role.destroy']);
+        Route::group(['middleware' => 'permission:' . Permission::ROLE_DESTROY], function () {
+            Route::delete('role/destroy', ['as' => 'destroy', 'uses' => 'RoleController@destroy']);
+        });
         //分配权限
-        Route::get('role/{id}/permission', ['as' => 'permission', 'uses' => 'RoleController@permission', 'middleware' => 'permission:user.role.permission']);
-        Route::put('role/{id}/assignPermission', ['as' => 'assignPermission', 'uses' => 'RoleController@assignPermission', 'middleware' => 'permission:user.role.permission']);
+        Route::group(['middleware' => 'permission:' . Permission::ROLE_PERMISSION], function () {
+            Route::get('role/{id}/permission', ['as' => 'permission', 'uses' => 'RoleController@permission']);
+            Route::put('role/{id}/assignPermission', ['as' => 'assignPermission', 'uses' => 'RoleController@assignPermission']);
+        });
     });
 
     //权限管理
-    Route::get('permission', ['as' => 'permission', 'uses' => 'PermissionController@index', 'middleware' => 'permission:user.permission']);
-    Route::group(['as' => 'permission.', 'middleware' => 'permission:user.permission'], function () {
+    Route::group(['middleware' => 'permission:' . Permission::PERMISSION], function () {
+        Route::get('permission', ['as' => 'permission', 'uses' => 'PermissionController@index']);
+    });
+    Route::group(['as' => 'permission.', 'middleware' => 'permission:' . Permission::PERMISSION], function () {
         Route::get('permission/data', ['as' => 'data', 'uses' => 'PermissionController@data']);
         //添加
-        Route::get('permission/create', ['as' => 'create', 'uses' => 'PermissionController@create', 'middleware' => 'permission:user.permission.create']);
-        Route::post('permission/store', ['as' => 'store', 'uses' => 'PermissionController@store', 'middleware' => 'permission:user.permission.create']);
+        Route::group(['middleware' => 'permission:' . Permission::PERMISSION_CREATE], function () {
+            Route::get('permission/create', ['as' => 'create', 'uses' => 'PermissionController@create']);
+            Route::post('permission/store', ['as' => 'store', 'uses' => 'PermissionController@store']);
+        });
         //编辑
-        Route::get('permission/{id}/edit', ['as' => 'edit', 'uses' => 'PermissionController@edit', 'middleware' => 'permission:user.permission.edit']);
-        Route::put('permission/{id}/update', ['as' => 'update', 'uses' => 'PermissionController@update', 'middleware' => 'permission:user.permission.edit']);
+        Route::group(['middleware' => 'permission:' . Permission::PERMISSION_EDIT], function () {
+            Route::get('permission/{id}/edit', ['as' => 'edit', 'uses' => 'PermissionController@edit']);
+            Route::put('permission/{id}/update', ['as' => 'update', 'uses' => 'PermissionController@update']);
+        });
         //删除
-        Route::delete('permission/destroy', ['as' => 'destroy', 'uses' => 'PermissionController@destroy', 'middleware' => 'permission:user.permission.destroy']);
+        Route::group(['middleware' => 'permission:' . Permission::PERMISSION_DESTROY], function () {
+            Route::delete('permission/destroy', ['as' => 'destroy', 'uses' => 'PermissionController@destroy']);
+        });
     });
 });
 
@@ -105,40 +137,59 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'p
 | 系统管理模块
 |--------------------------------------------------------------------------
 */
-Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'permission:system']], function () {
+Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'permission:' . Permission::MODULE_SYSTEM]], function () {
     //配置组
-    Route::get('option_group', ['as' => 'option_group', 'uses' => 'OptionGroupController@index', 'middleware' => 'permission:system.option_group']);
-    Route::group(['as' => 'option_group.', 'middleware' => 'permission:system.option_group'], function () {
+    Route::group(['middleware' => 'permission:' . Permission::OPTION_GROUP], function () {
+        Route::get('option_group', ['as' => 'option_group', 'uses' => 'OptionGroupController@index']);
+    });
+    Route::group(['as' => 'option_group.', 'middleware' => 'permission:' . Permission::OPTION_GROUP], function () {
         Route::get('option_group/data', ['as' => 'data', 'uses' => 'OptionGroupController@data']);
         //添加
-        Route::get('option_group/create', ['as' => 'create', 'uses' => 'OptionGroupController@create', 'middleware' => 'permission:system.option_group.create']);
-        Route::post('option_group/store', ['as' => 'store', 'uses' => 'OptionGroupController@store', 'middleware' => 'permission:system.option_group.create']);
+        Route::group(['middleware' => 'permission:' . Permission::OPTION_GROUP_CREATE], function () {
+            Route::get('option_group/create', ['as' => 'create', 'uses' => 'OptionGroupController@create']);
+            Route::post('option_group/store', ['as' => 'store', 'uses' => 'OptionGroupController@store']);
+        });
         //编辑
-        Route::get('option_group/{id}/edit', ['as' => 'edit', 'uses' => 'OptionGroupController@edit', 'middleware' => 'permission:system.option_group.edit']);
-        Route::put('option_group/{id}/update', ['as' => 'update', 'uses' => 'OptionGroupController@update', 'middleware' => 'permission:system.option_group.edit']);
+        Route::group(['middleware' => 'permission:' . Permission::OPTION_GROUP_EDIT], function () {
+            Route::get('option_group/{id}/edit', ['as' => 'edit', 'uses' => 'OptionGroupController@edit']);
+            Route::put('option_group/{id}/update', ['as' => 'update', 'uses' => 'OptionGroupController@update']);
+        });
         //删除
-        Route::delete('option_group/destroy', ['as' => 'destroy', 'uses' => 'OptionGroupController@destroy', 'middleware' => 'permission:system.option_group.destroy']);
+        Route::group(['middleware' => 'permission:' . Permission::OPTION_GROUP_DESTROY], function () {
+            Route::delete('option_group/destroy', ['as' => 'destroy', 'uses' => 'OptionGroupController@destroy']);
+        });
     });
 
     //配置项
-    Route::get('option', ['as' => 'option', 'uses' => 'OptionController@index', 'middleware' => 'permission:system.option']);
-    Route::group(['as' => 'option.', 'middleware' => 'permission:system.option'], function () {
+    Route::group(['middleware' => 'permission:' . Permission::OPTION], function () {
+        Route::get('option', ['as' => 'option', 'uses' => 'OptionController@index']);
+    });
+    Route::group(['as' => 'option.', 'middleware' => 'permission:' . Permission::OPTION], function () {
         //添加
-        Route::get('option/create', ['as' => 'create', 'uses' => 'OptionController@create', 'middleware' => 'permission:system.option.create']);
-        Route::post('option/store', ['as' => 'store', 'uses' => 'OptionController@store', 'middleware' => 'permission:system.option.create']);
+        Route::group(['middleware' => 'permission:' . Permission::OPTION_CREATE], function () {
+            Route::get('option/create', ['as' => 'create', 'uses' => 'OptionController@create']);
+            Route::post('option/store', ['as' => 'store', 'uses' => 'OptionController@store']);
+        });
         //编辑
-        Route::put('option/update', ['as' => 'update', 'uses' => 'OptionController@update', 'middleware' => 'permission:system.option.edit']);
+        Route::group(['middleware' => 'permission:' . Permission::OPTION_EDIT], function () {
+            Route::put('option/update', ['as' => 'update', 'uses' => 'OptionController@update']);
+        });
         //删除
-        Route::delete('option/destroy', ['as' => 'destroy', 'uses' => 'OptionController@destroy', 'middleware' => 'permission:system.option.destroy']);
+        Route::group(['middleware' => 'permission:' . Permission::OPTION_DESTROY], function () {
+            Route::delete('option/destroy', ['as' => 'destroy', 'uses' => 'OptionController@destroy']);
+        });
         //配置项上传图片
-        Route::post('option/upload', ['as' => 'upload', 'uses' => 'OptionController@upload', 'middleware' => 'permission:system.option.create']);
+        Route::group(['middleware' => 'permission:' . Permission::OPTION_CREATE], function () {
+            Route::post('option/upload', ['as' => 'upload', 'uses' => 'OptionController@upload']);
+        });
     });
 
     //登录日志
-    Route::get('login_log', ['as' => 'login_log', 'uses' => 'LoginLogController@index', 'middleware' => 'permission:system.login_log']);
-    Route::group(['as' => 'login_log.', 'middleware' => 'permission:system.login_log'], function () {
+    Route::group(['middleware' => 'permission:' . Permission::LOGIN_LOG], function () {
+        Route::get('login_log', ['as' => 'login_log', 'uses' => 'LoginLogController@index']);
+    });
+    Route::group(['as' => 'login_log.', 'middleware' => 'permission:' . Permission::LOGIN_LOG], function () {
         Route::get('login_log/data', ['as' => 'data', 'uses' => 'LoginLogController@data']);
         Route::delete('login_log/destroy', ['as' => 'destroy', 'uses' => 'LoginLogController@destroy']);
     });
-
 });

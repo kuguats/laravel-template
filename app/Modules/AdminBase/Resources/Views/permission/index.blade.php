@@ -1,10 +1,16 @@
+<?php
+
+use App\Models\AdminBase\Permission;
+
+?>
+
 @extends('AdminBase::base')
 
 @section('content')
     <div class="layui-card">
         <div class="layui-card-header layuiadmin-card-header-auto">
             <div class="layui-inline">
-                @can('user.permission.create')
+                @can(Permission::PERMISSION_CREATE)
                     <a class="layui-btn" href="{{ route('admin.permission.create') }}">添加</a>
                 @endcan
             </div>
@@ -13,10 +19,10 @@
             <table id="dataTable" lay-filter="dataTable"></table>
             <script type="text/html" id="options">
                 <div class="layui-inline">
-                    @can('user.permission.edit')
+                    @can(Permission::PERMISSION_EDIT)
                         <a class="layui-btn layui-btn-sm" lay-event="edit">编辑</a>
                     @endcan
-                    @can('user.permission.destroy')
+                    @can(Permission::PERMISSION_DESTROY)
                         <a class="layui-btn layui-btn-sm layui-btn-danger" lay-event="del">删除</a>
                     @endcan
                 </div>
@@ -26,7 +32,7 @@
 @endsection
 
 @section('script')
-    @can('user.permission')
+    @can(Permission::PERMISSION)
         <script>
             layui.config({
                 base: '/static/admin/layuiadmin/modules/'

@@ -17,7 +17,7 @@ class LoginLogController extends Controller
      */
     public function index()
     {
-        return View::make('AdminBase::log.login');
+        return view('AdminBase::log.login');
     }
 
     /**

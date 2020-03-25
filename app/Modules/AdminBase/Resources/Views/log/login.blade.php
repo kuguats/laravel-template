@@ -1,3 +1,9 @@
+<?php
+
+use App\Models\AdminBase\Permission;
+
+?>
+
 @extends('AdminBase::base')
 
 @section('content')
@@ -19,7 +25,7 @@
                     <button type="button" class="layui-btn" lay-submit lay-filter="search">搜索</button>
                 </div>
                 <div class="layui-inline">
-                    @can('system.login_log.destroy')
+                    @can(Permission::LOGIN_LOG_DESTROY)
                         <button type="button" class="layui-btn layui-btn-danger" id="listDelete">删除
                         </button>
                     @endcan
@@ -30,7 +36,7 @@
             <table id="dataTable" lay-filter="dataTable"></table>
             <script type="text/html" id="options">
                 <div class="layui-inline">
-                    @can('system.login_log.destroy')
+                    @can(Permission::LOGIN_LOG_DESTROY)
                         <a class="layui-btn layui-btn-sm layui-btn-danger" lay-event="del">删除</a>
                     @endcan
                 </div>

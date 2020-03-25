@@ -20,7 +20,7 @@ class PermissionController extends Controller
      */
     public function index()
     {
-        return View::make('AdminBase::permission.index');
+        return view('AdminBase::permission.index');
     }
 
     /**
@@ -46,7 +46,7 @@ class PermissionController extends Controller
     public function create()
     {
         $permissions = Permission::with('children')->where('parent_id', 0)->get();
-        return View::make('AdminBase::permission.create', compact('permissions'));
+        return view('AdminBase::permission.create', compact('permissions'));
     }
 
     /**
@@ -86,7 +86,7 @@ class PermissionController extends Controller
     {
         $permission = Permission::findOrFail($id);
         $permissions = Permission::with('children')->where('parent_id', 0)->get();
-        return View::make('AdminBase::permission.edit', compact('permission', 'permissions'));
+        return view('AdminBase::permission.edit', compact('permission', 'permissions'));
     }
 
     /**

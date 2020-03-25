@@ -1,14 +1,20 @@
+<?php
+
+use App\Models\AdminBase\Permission;
+
+?>
+
 @extends('AdminBase::base')
 
 @section('content')
     <div class="layui-card">
         <div class="layui-card-header layuiadmin-card-header-auto">
             <div class="layui-inline">
-                @can('user.role.destroy')
-                    <button class="layui-btn layui-btn-danger" id="listDelete">删除</button>
-                @endcan
-                @can('user.role.create')
+                @can(Permission::ROLE_CREATE)
                     <a class="layui-btn" href="{{ route('admin.role.create') }}">添加</a>
+                @endcan
+                @can(Permission::ROLE_DESTROY)
+                    <button class="layui-btn layui-btn-danger" id="listDelete">删除</button>
                 @endcan
             </div>
         </div>
@@ -16,13 +22,13 @@
             <table id="dataTable" lay-filter="dataTable"></table>
             <script type="text/html" id="options">
                 <div class="layui-inline">
-                    @can('user.role.edit')
+                    @can(Permission::ROLE_EDIT)
                         <a class="layui-btn layui-btn-sm" lay-event="edit">编辑</a>
                     @endcan
-                    @can('user.role.permission')
+                    @can(Permission::ROLE_PERMISSION)
                         <a class="layui-btn layui-btn-sm" lay-event="permission">权限</a>
                     @endcan
-                    @can('user.role.destroy')
+                    @can(Permission::ROLE_DESTROY)
                         <a class="layui-btn layui-btn-sm layui-btn-danger" lay-event="del">删除</a>
                     @endcan
                 </div>
@@ -32,7 +38,7 @@
 @endsection
 
 @section('script')
-    @can('user.role')
+    @can(Permission::ROLE)
         <script>
             layui.use(['layer', 'table', 'form'], function () {
                 var $ = layui.jquery;

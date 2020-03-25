@@ -12,11 +12,11 @@ class IndexController extends Controller
     public function layout()
     {
         $menus = Permission::with(['childs'])->where('parent_id', 0)->orderBy('sort', 'desc')->get();
-        return View::make('AdminBase::layout', compact('menus'));
+        return view('AdminBase::layout', compact('menus'));
     }
 
     public function index()
     {
-        return View::make('AdminBase::index.index');
+        return view('AdminBase::index.index');
     }
 }

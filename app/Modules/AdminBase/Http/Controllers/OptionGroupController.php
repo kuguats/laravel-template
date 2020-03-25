@@ -20,7 +20,7 @@ class OptionGroupController extends Controller
      */
     public function index()
     {
-        return View::make('AdminBase::option_group.index');
+        return view('AdminBase::option_group.index');
     }
 
     /**
@@ -47,7 +47,7 @@ class OptionGroupController extends Controller
      */
     public function create()
     {
-        return View::make('AdminBase::option_group.create');
+        return view('AdminBase::option_group.create');
     }
 
     /**
@@ -86,7 +86,7 @@ class OptionGroupController extends Controller
     public function edit($id)
     {
         $option_group = OptionGroup::findOrFail($id);
-        return View::make('AdminBase::option_group.edit',compact('option_group'));
+        return view('AdminBase::option_group.edit',compact('option_group'));
     }
 
     /**

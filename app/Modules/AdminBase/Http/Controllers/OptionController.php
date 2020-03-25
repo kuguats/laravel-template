@@ -31,7 +31,7 @@ class OptionController extends Controller
     public function index()
     {
         $groups = OptionGroup::with('options')->orderBy('sort','asc')->get();
-        return View::make('AdminBase::option.index',compact('groups'));
+        return view('AdminBase::option.index',compact('groups'));
     }
 
     /**
@@ -41,7 +41,7 @@ class OptionController extends Controller
     public function create()
     {
         $groups = OptionGroup::orderBy('sort','asc')->get();
-        return View::make('AdminBase::option.create',compact('groups'));
+        return view('AdminBase::option.create',compact('groups'));
     }
 
     /**
