@@ -1,6 +1,7 @@
 ## 安装步骤
 - git clone git@github.com:kuguats/laravel-template.git
-- 复制.env.example为.env并配置.env
+- cp -r .env.example .env
+- 配置数据库连接信息
 - composer update
 - php artisan key:generate
 - 导入init.sql到数据库
